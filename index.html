@@ -60,10 +60,7 @@
 		</div>	
         </body>
 	<script>
-	//var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-	//var source = audioCtx.createBufferSource();
 	var songLength;
-	// Variables of various elements
 	var titlecard = document.getElementById('titleCard'); 
 	var videoPlayer = document.getElementById('v');
 	var playPauseBtn = document.getElementById('playPauseButton');
@@ -119,30 +116,8 @@
 		// Our <video> element will be the audio source.
 		  source.connect(gainNode);
 		  gainNode.connect(context.destination);
+		  videoPlayer.play();
         }
-	/*
-	function getData() 
-	{
-		source = audioCtx.createBufferSource();
-		request = new XMLHttpRequest();
-		request.open('GET', 'KSound.ogg', true);
-		request.responseType = 'arraybuffer';
-		request.onload = function() 
-		{
-			var audioData = request.response;
-			audioCtx.decodeAudioData(audioData, function(buffer) 
-			{
-				myBuffer = buffer;
-				songLength = buffer.duration;
-				source.buffer = myBuffer;
-				source.playbackRate.value = spdValue;
-				source.connect(audioCtx.destination);
-				source.loop = true;
-			},
-			function(e){"Error with decoding audio data" + e.err});
-		}
-		request.send();
-        }*/
 	function togglePlayPause() 
 	{ 
 		if (videoPlayer.paused || videoPlayer.ended) {
@@ -161,7 +136,7 @@
 	} 
 	function stopPlayer() 
 	{
-		//source.stop(0);
+		source.stop(0);
 		videoPlayer.currentTime = 0;
 		videoPlayer.pause();
 		changeButtonType(playPauseBtn, 'play');

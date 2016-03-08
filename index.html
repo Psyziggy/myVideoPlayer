@@ -63,7 +63,7 @@
 		</div>	
         </body>
 	<script>
-	/*var songLength;
+	var songLength;
 	var titlecard = document.getElementById('titleCard'); 
 	var videoPlayer = document.getElementById('v');
 	var playPauseBtn = document.getElementById('playPauseButton');
@@ -71,6 +71,8 @@
 	var volValue = 3.0;
 	var spdValue = 1.0;
 	var new_volValue;
+	lowLag.init();
+	lowLag.load(["KSound.mp3","KSound.ogg"],"pluck");
 	
 	var context = new (window.AudioContext || window.webkitAudioContext)();
 	var gainNode = context.createGain();
@@ -124,10 +126,11 @@
 	function togglePlayPause() 
 	{ 
 		if (videoPlayer.paused || videoPlayer.ended) {
-			videoPlayer.playbackRate = spdValue;
+			//videoPlayer.playbackRate = spdValue;
 			changeButtonType(playPauseBtn, 'pause');
-			videoPlayer.play();
+			//videoPlayer.play();
 			titleCard.style.visibility = 'hidden';
+			lowLag.play("pluck");
 			//getData();
   			//source.start(0);
 		}
@@ -233,10 +236,7 @@
 	function resetPlayer() {
 		videoPlayer.currentTime = 0;
 		changeButtonType(playPauseBtn, 'play');
-	}*/
-	lowLag.init();
-	lowLag.load(["KSound.mp3","KSound.ogg"],"pluck");
-	lowLag.play("pluck");
+	}
 	</script>
 </html>
 Status API Training Shop Blog About Pricing

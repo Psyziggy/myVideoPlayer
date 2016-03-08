@@ -63,7 +63,7 @@
 		</div>	
         </body>
 	<script>
-	var songLength;
+	//var songLength;
 	var titlecard = document.getElementById('titleCard'); 
 	var videoPlayer = document.getElementById('v');
 	var playPauseBtn = document.getElementById('playPauseButton');
@@ -74,10 +74,10 @@
 	lowLag.init();
 	lowLag.load(["KSound.mp3","KSound.ogg"],"pluck");
 	
-	var context = new (window.AudioContext || window.webkitAudioContext)();
-	var gainNode = context.createGain();
-	var audioSource = context.createMediaElementSource(document.getElementById("videoClips"));
-        var filter = context.createBiquadFilter();
+	//var context = new (window.AudioContext || window.webkitAudioContext)();
+	//var gainNode = context.createGain();
+	//var audioSource = context.createMediaElementSource(document.getElementById("videoClips"));
+        //var filter = context.createBiquadFilter();
         
 	document.addEventListener("DOMContentLoaded", function() { initialiseMediaPlayer(); }, false);
 	
@@ -110,19 +110,11 @@
 		}, false);
 		videoPlayer.addEventListener('ended',replayMedia, false);
 		videoPlayer.controls = false;
-		gainNode.gain.value = 0.1;
+		//gainNode.gain.value = 0.1;
 		
-		audioSource.connect(filter);
-                filter.connect(context.destination);
+		//audioSource.connect(filter);
+                //filter.connect(context.destination);
 	}
-	
-	function getData() 
-	{
-		// Our <video> element will be the audio source.
-		  source.connect(gainNode);
-		  gainNode.connect(context.destination);
-		  videoPlayer.play();
-        }
 	function togglePlayPause() 
 	{ 
 		if (videoPlayer.paused || videoPlayer.ended) {

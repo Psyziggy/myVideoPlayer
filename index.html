@@ -19,8 +19,11 @@
 		<title>Custom Media Player</title>
 		<link href="fonts/fontStyle.css" rel="stylesheet">
 		<link href="mainVideoPlayer.css" rel="stylesheet">
-		<script type="text/javascript" src="js/jquery.js"></script>
-		<script type="text/javascript" src="js/jquery.jplayer.min.js"></script>
+		<script src="/js/lowLag.js"></script>
+		<script src="/js/soundmanager2.js"></script>
+		<script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+		<!--<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/jquery.jplayer.min.js"></script>-->
 	</head>
         <body>
 		<div id='playerRegion'>
@@ -60,7 +63,7 @@
 		</div>	
         </body>
 	<script>
-	var songLength;
+	/*var songLength;
 	var titlecard = document.getElementById('titleCard'); 
 	var videoPlayer = document.getElementById('v');
 	var playPauseBtn = document.getElementById('playPauseButton');
@@ -230,7 +233,10 @@
 	function resetPlayer() {
 		videoPlayer.currentTime = 0;
 		changeButtonType(playPauseBtn, 'play');
-	}
+	}*/
+	lowLag.init({"urlPrefix":"sounds/"});
+	lowLag.load(["KSound.mp3","KSound.ogg"],"pluck");
+	lowLag.play("pluck");
 	</script>
 </html>
 Status API Training Shop Blog About Pricing

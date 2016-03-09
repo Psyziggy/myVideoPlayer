@@ -29,25 +29,12 @@
 		<div id='playerRegion'>
 			<div id='moviePlayer'>
 				<img id="titleCard"></img>
-				<!--<video src="movieClip/KClip.webm" id="v" controls></video>-->
 				<video id='videoClips' controls="false">
 					<source src='movieClip/KClip.mp4' type='video/mp4'>
 					<source src='movieClip/KClip.webm' type='video/webm'>
 					<source src='movieClip/KClip.ogg' type='video/ogg'>
-					<!-- flash fallback for IE6, IE7, IE8 and Opera -->
-					<object type="application/x-shockwave-flash" data="movieClip/KClip.swf" width="1024" height="576">
-						<param name="movie" value="movieClip/KClip.swf" />
-						<param name="allowFullScreen" value="true" />
-						<param name="wmode" value="transparent" />
-						<!-- note the encoded path to the image and video files, relative to the .swf! -->
-						<!-- more on that here: http://en.wikipedia.org/wiki/Percent-encoding -->
-						<param name="flashVars"
-							   value="config={'playlist':['..%2FmovieClip%2FKClip.jpg',{'url':'..%2FmovieClip%2FKClip.mp4','autoPlay':false}]}" />
-						<!-- fallback image if flash fails -->
-						<img src="movieClip/KClip.jpg" width="576" height="576" title="No Flash found?  UPDATE YOUR BROWSER!!!" />
-					</object>
 					<p>No support at all, download a new version of your browser!</p>
-				</video>-->
+				</video>
 				<div id="controlPanel">
 					<button id="playPauseButton" class="play" title="Play" alt="PLAY" onclick="togglePlayPause();"></button>
 					<button id="stopButton" class="bstop" title="Stop" alt="STOP" onclick="stopPlayer();"></button>

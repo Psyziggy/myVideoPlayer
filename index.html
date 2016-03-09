@@ -91,7 +91,6 @@
 				source.buffer = myBuffer;
 				source.playbackRate.value = 1.0;
 				source.connect(audioCtx.destination);
-				source.loop = true;
 			},
 		
 		function(e){"Error with decoding audio data" + e.err});
@@ -241,7 +240,10 @@
 	}
 	function replayMedia() 
 	{
-		resetPlayer();
+		getAudio();
+  		source.start(0);
+		videoPlayer.currentTime = 0;
+		changeButtonType(playPauseBtn, 'play');
 		videoPlayer.play();
 	} 
 	function changeButtonType(btn, value) {
@@ -268,8 +270,7 @@
 		else return true;
 	}
 	function resetPlayer() {
-		videoPlayer.currentTime = 0;
-		changeButtonType(playPauseBtn, 'play');
+		
 	}
 	</script>
 </html>

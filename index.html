@@ -91,6 +91,7 @@
 				source.buffer = myBuffer;
 				source.playbackRate.value = 1.0;
 				source.connect(audioCtx.destination);
+				source.loop = false;
 			},
 		
 		function(e){"Error with decoding audio data" + e.err});
@@ -150,7 +151,7 @@
 				source.buffer = myBuffer;
 				source.playbackRate.value = 1.0;
 				source.connect(audioCtx.destination);
-				source.loop = true;
+				source.loop = false;
 			},
 		
 		function(e){"Error with decoding audio data" + e.err});

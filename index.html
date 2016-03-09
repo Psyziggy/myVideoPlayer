@@ -19,7 +19,7 @@
 		<title>Custom Media Player</title>
 		<link href="fonts/fontStyle.css" rel="stylesheet">
 		<link href="mainVideoPlayer.css" rel="stylesheet">
-		<!--//<script src="js/lowLag.js"></script>
+		<!--<script src="js/lowLag.js"></script>
 		<script src="js/soundmanager2.js"></script>
 		<script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>-->
 		<script type="text/javascript" src="js/jquery.js"></script>
@@ -29,8 +29,8 @@
 		<div id='playerRegion'>
 			<div id='moviePlayer'>
 				<img id="titleCard"></img>
-				<video src="movieClip/KClip.webm" id="v" controls></video>
-				<!--<video id='videoClips' controls="false">
+				<!--<video src="movieClip/KClip.webm" id="v" controls></video>-->
+				<video id='videoClips' controls="false">
 					<source src='movieClip/KClip.mp4' type='video/mp4'>
 					<source src='movieClip/KClip.webm' type='video/webm'>
 					<source src='movieClip/KClip.ogg' type='video/ogg'>
@@ -65,7 +65,7 @@
 	<script>
 	//var songLength;
 	var titlecard = document.getElementById('titleCard'); 
-	var videoPlayer = document.getElementById('v');
+	var videoPlayer = document.getElementById('videoClips');
 	var playPauseBtn = document.getElementById('playPauseButton');
 	var muteBtn = document.getElementById('muteButton');
 	var volValue = 3.0;
@@ -162,7 +162,7 @@
 		else { 
 			changeButtonType(playPauseBtn, 'play'); 
 			videoPlayer.pause();
-			//source.stop(0);
+			source.stop(0);
 		}
 	} 
 	function stopPlayer() 

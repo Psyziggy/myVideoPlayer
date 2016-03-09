@@ -73,40 +73,10 @@
 	
 	function initialiseMediaPlayer() 
 	{	
-		source = audioCtx.createBufferSource();
-		request = new XMLHttpRequest();
-		//request.onreadystatechange = function() {
-	//	if (request.readyState == 4 && request.status == 200) {
-	//	document.getElementById("demo").innerHTML = request.responseText;
-		//}
-		//};
-		request.open('GET', 'KSound.mp3', true);
-		
-		request.responseType = 'arraybuffer';
-		
-		
-		request.onload = function() {
-			var audioData = request.response;
-			
-			audioCtx.decodeAudioData(audioData, function(buffer) {
-				myBuffer = buffer;
-				songLength = buffer.duration;
-				source.buffer = myBuffer;
-				//source.playbackRate.value = playbackControl.value;
-				source.connect(audioCtx.destination);
-				source.loop = true;
-			},
-		
-		function(e){"Error with decoding audio data" + e.err});
-		
-		}
-		
-		request.send();
-		
 		//videoPlayer = document.getElementById('videoClips');
 		//playPauseBtn = document.getElementById('playPauseButton');
 	//	muteBtn = document.getElementById('muteButton');
-	
+		getAudio();
 		document.getElementById("videoVolume").innerHTML = "VOLUME: "+volValue.toFixed();
 		document.getElementById("videoSpeed").innerHTML = "SPEED: x"+spdValue.toFixed(1);
 		
@@ -135,15 +105,43 @@
 		//audioSource.connect(filter);
                 //filter.connect(context.destination);
 	}
+	function getAudio(){
+		source = audioCtx.createBufferSource();
+		request = new XMLHttpRequest();
+		//request.onreadystatechange = function() {
+	//	if (request.readyState == 4 && request.status == 200) {
+	//	document.getElementById("demo").innerHTML = request.responseText;
+		//}
+		//};
+		request.open('GET', 'KSound.mp3', true);
+		
+		request.responseType = 'arraybuffer';
+		
+		
+		request.onload = function() {
+			var audioData = request.response;
+			
+			audioCtx.decodeAudioData(audioData, function(buffer) {
+				myBuffer = buffer;
+				songLength = buffer.duration;
+				source.buffer = myBuffer;
+				source.playbackRate.value = playbackControl.value;
+				source.connect(audioCtx.destination);
+				source.loop = true;
+			},
+		
+		function(e){"Error with decoding audio data" + e.err});
+		}
+		request.send();
+	}
 	function togglePlayPause() 
 	{ 
 		if (videoPlayer.paused || videoPlayer.ended) {
-			//videoPlayer.playbackRate = spdValue;
+			videoPlayer.playbackRate = spdValue;
 			changeButtonType(playPauseBtn, 'pause');
 			videoPlayer.play();
 			titleCard.style.visibility = 'hidden';
-			//lowLag.play("pluck");
-			//getData();
+			getAudio();
   			source.start(0);
 		}
 		else { 

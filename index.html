@@ -19,8 +19,8 @@
 		<title>Custom Media Player</title>
 		<link href="fonts/fontStyle.css" rel="stylesheet">
 		<link href="mainVideoPlayer.css" rel="stylesheet">
-		<script src="js/lowLag.js"></script>
-		<script src="js/soundmanager2.js"></script>
+		<!--//<script src="js/lowLag.js"></script>
+		<script src="js/soundmanager2.js"></script>-->
 		<script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
 		<!--<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/jquery.jplayer.min.js"></script>-->
@@ -71,8 +71,11 @@
 	var volValue = 3.0;
 	var spdValue = 1.0;
 	var new_volValue;
-	lowLag.init();
-	lowLag.load(["KSound.mp3","KSound.ogg"],"pluck");
+//	lowLag.init();
+	//lowLag.load(["KSound.mp3","KSound.ogg"],"pluck");
+	var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+	var source;
+	var songLength;
 	
 	//var context = new (window.AudioContext || window.webkitAudioContext)();
 	//var gainNode = context.createGain();
@@ -83,6 +86,36 @@
 	
 	function initialiseMediaPlayer() 
 	{	
+		source = audioCtx.createBufferSource();
+		request = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+		document.getElementById("demo").innerHTML = xhttp.responseText;
+		}
+		};
+		request.open('GET', 'KSound.mp3', true);
+		
+		request.responseType = 'arraybuffer';
+		
+		
+		request.onload = function() {
+			var audioData = request.response;
+			
+			audioCtx.decodeAudioData(audioData, function(buffer) {
+				myBuffer = buffer;
+				songLength = buffer.duration;
+				source.buffer = myBuffer;
+				//source.playbackRate.value = playbackControl.value;
+				source.connect(audioCtx.destination);
+				source.loop = true;
+			},
+		
+		function(e){"Error with decoding audio data" + e.err});
+		
+		}
+		
+		request.send();
+		
 		//videoPlayer = document.getElementById('videoClips');
 		//playPauseBtn = document.getElementById('playPauseButton');
 	//	muteBtn = document.getElementById('muteButton');
@@ -122,9 +155,9 @@
 			changeButtonType(playPauseBtn, 'pause');
 			//videoPlayer.play();
 			titleCard.style.visibility = 'hidden';
-			lowLag.play("pluck");
+			//lowLag.play("pluck");
 			//getData();
-  			//source.start(0);
+  			source.start(0);
 		}
 		else { 
 			changeButtonType(playPauseBtn, 'play'); 

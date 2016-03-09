@@ -33,7 +33,6 @@
 					<source src='movieClip/KClip.mp4' type='video/mp4'>
 					<source src='movieClip/KClip.webm' type='video/webm'>
 					<source src='movieClip/KClip.ogg' type='video/ogg'>
-					<p>No support at all, download a new version of your browser!</p>
 				</video>
 				<div id="controlPanel">
 					<button id="playPauseButton" class="play" title="Play" alt="PLAY" onclick="togglePlayPause();"></button>
@@ -50,7 +49,9 @@
 		</div>	
         </body>
 	<script>
-	//var songLength;
+	var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+	var source;
+	var songLength;
 	var titlecard = document.getElementById('titleCard'); 
 	var videoPlayer = document.getElementById('videoClips');
 	var playPauseBtn = document.getElementById('playPauseButton');
@@ -58,11 +59,7 @@
 	var volValue = 3.0;
 	var spdValue = 1.0;
 	var new_volValue;
-//	lowLag.init();
-	//lowLag.load(["KSound.mp3","KSound.ogg"],"pluck");
-	var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-	var source;
-	var songLength;
+	
 	
 	//var context = new (window.AudioContext || window.webkitAudioContext)();
 	//var gainNode = context.createGain();
@@ -76,7 +73,7 @@
 		//videoPlayer = document.getElementById('videoClips');
 		//playPauseBtn = document.getElementById('playPauseButton');
 	//	muteBtn = document.getElementById('muteButton');
-		getAudio();
+		
 		document.getElementById("videoVolume").innerHTML = "VOLUME: "+volValue.toFixed();
 		document.getElementById("videoSpeed").innerHTML = "SPEED: x"+spdValue.toFixed(1);
 		
@@ -100,6 +97,7 @@
 		}, false);
 		videoPlayer.addEventListener('ended',replayMedia, false);
 		videoPlayer.controls = false;
+		getAudio();
 		//gainNode.gain.value = 0.1;
 		
 		//audioSource.connect(filter);
@@ -125,7 +123,7 @@
 				myBuffer = buffer;
 				songLength = buffer.duration;
 				source.buffer = myBuffer;
-				source.playbackRate.value = playbackControl.value;
+				source.playbackRate.value = 1.0;
 				source.connect(audioCtx.destination);
 				source.loop = true;
 			},

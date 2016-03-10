@@ -26,25 +26,12 @@
 		<div id='playerRegion'>
 			<div id='moviePlayer'>
 				<img id="titleCard"></img>
-				<video src="movieClip/KClip.webm" id="v" controls></video>
+				<video src="movieClip/KClip.mp4" id="v" controls></video>
 				<!--<video id='videoClips' controls="false">
 					<source src='movieClip/KClip.mp4' type='video/mp4'>
 					<source src='movieClip/KClip.webm' type='video/webm'>
 					<source src='movieClip/KClip.ogg' type='video/ogg'>
 					<!-- flash fallback for IE6, IE7, IE8 and Opera -->
-					<object type="application/x-shockwave-flash" data="movieClip/KClip.swf" width="1024" height="576">
-						<param name="movie" value="movieClip/KClip.swf" />
-						<param name="allowFullScreen" value="true" />
-						<param name="wmode" value="transparent" />
-						<!-- note the encoded path to the image and video files, relative to the .swf! -->
-						<!-- more on that here: http://en.wikipedia.org/wiki/Percent-encoding -->
-						<param name="flashVars"
-							   value="config={'playlist':['..%2FmovieClip%2FKClip.jpg',{'url':'..%2FmovieClip%2FKClip.mp4','autoPlay':false}]}" />
-						<!-- fallback image if flash fails -->
-						<img src="movieClip/KClip.jpg" width="576" height="576" title="No Flash found?  UPDATE YOUR BROWSER!!!" />
-					</object>
-					<p>No support at all, download a new version of your browser!</p>
-				</video>-->
 				<div id="controlPanel">
 					<button id="playPauseButton" class="play" title="Play" alt="PLAY" onclick="togglePlayPause();"></button>
 					<button id="stopButton" class="bstop" title="Stop" alt="STOP" onclick="stopPlayer();"></button>
@@ -71,13 +58,17 @@
 	
 	var context = new (window.AudioContext || window.webkitAudioContext)();
 	var gainNode = context.createGain();
-	var audioSource = context.createMediaElementSource(document.getElementById("videoClips"));
+	var audioSource = context.createMediaElementSource(videoPlayer);
         var filter = context.createBiquadFilter();
         
 	document.addEventListener("DOMContentLoaded", function() { initialiseMediaPlayer(); }, false);
 	
 	function initialiseMediaPlayer() 
 	{	
+		gainNode.gain.value = 0.3;
+		
+		audioSource.connect(filter);
+                filter.connect(context.destination);
 		//videoPlayer = document.getElementById('videoClips');
 		//playPauseBtn = document.getElementById('playPauseButton');
 	//	muteBtn = document.getElementById('muteButton');
@@ -105,10 +96,6 @@
 		}, false);
 		videoPlayer.addEventListener('ended',replayMedia, false);
 		videoPlayer.controls = false;
-		gainNode.gain.value = 0.1;
-		
-		audioSource.connect(filter);
-                filter.connect(context.destination);
 	}
 	
 	function getData() 
@@ -125,18 +112,18 @@
 			changeButtonType(playPauseBtn, 'pause');
 			videoPlayer.play();
 			titleCard.style.visibility = 'hidden';
-			//getData();
-  			//source.start(0);
+			getData();
+  			audioSource.start(0);
 		}
 		else { 
 			changeButtonType(playPauseBtn, 'play'); 
 			videoPlayer.pause();
-			//source.stop(0);
+			audioSource.stop(0);
 		}
 	} 
 	function stopPlayer() 
 	{
-		source.stop(0);
+		audioSource.stop(0);
 		videoPlayer.currentTime = 0;
 		videoPlayer.pause();
 		changeButtonType(playPauseBtn, 'play');
